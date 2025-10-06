@@ -1,0 +1,45 @@
+name: Build Electron (Windows) + Pack Server with pkg
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build_windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Pack server into exe using pkg
+        working-directory: server_all_v2
+        run: |
+          npm install -g pkg
+          npm install
+          npx pkg . --targets node18-win-x64 --output server_all_v2.exe
+
+      - name: Copy server exe to electron_bundle
+        run: |
+          mkdir -p electron_bundle/server_bin
+          cp server_all_v2/server_all_v2.exe electron_bundle/server_bin/
+
+      - name: Build Electron Windows installer with signing
+        working-directory: electron_bundle
+        run: |
+          npm install --save-dev electron electron-builder
+          if [ -n "${{ secrets.WIN_CERT_BASE64 }}" ]; then
+            echo "${{ secrets.WIN_CERT_BASE64 }}" | base64 --decode > win_cert.pfx
+          fi
+          npx electron-builder --win --x64
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: electron-windows-artifacts
+          path: electron_bundle/dist/**

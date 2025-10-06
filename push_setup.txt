@@ -1,0 +1,11 @@
+# Initialize and push the repository
+git init
+git checkout -b main
+git add .
+git commit -m "Initial commit — SuperstarRacing scaffold"
+git remote add origin https://github.com/trymenow-dev/SuperstarRacing.git
+git push -u origin main
+
+# Add GitHub Secrets for code signing:
+# WIN_CERT_BASE64 - Base64 encoded PFX certificate
+# WIN_CERT_PASS   - PFX password

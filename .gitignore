@@ -1,0 +1,17 @@
+node_modules/
+dist/
+*.exe
+*.db
+*.log
+.env
+.DS_Store
+thumbs.db
+.vscode/
+.idea/
+/bin/
+/obj/
+/build/
+/release/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
