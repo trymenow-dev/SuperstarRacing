@@ -2,14 +2,17 @@
   "name": "superstar-server-all-v2",
   "version": "0.1.0",
   "main": "server_all_v2.js",
+  "bin": "server_all_v2.js",
   "scripts": {
     "start": "node server_all_v2.js",
-    "pack": "pkg . --targets node18-win-x64 --output server_all_v2.exe"
+    "build-exe": "pkg . --targets node18-win-x64 --output server_all_v2.exe"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "ws": "^8.13.0",
-    "notepack.io": "^2.2.1",
-    "better-sqlite3": "^8.0.1"
+    "express": "^4.18.2"
+  },
+  "pkg": {
+    "assets": [
+      "public/**/*"
+    ]
   }
 }

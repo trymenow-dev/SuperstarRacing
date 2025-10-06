@@ -1,18 +1,10 @@
-<!doctype html><html><head><meta charset="utf-8"/><title>Queue Client</title></head><body>
-<h3>Queue Client Demo</h3>
-<div id="status">Connecting...</div>
-<button id="join">Join Queue</button>
-<button id="leave">Leave Queue</button>
-<button id="start">Admin Start Match</button>
-<script src="https://unpkg.com/notepack.io@2.2.1/browser.min.js"></script>
-<script>
-const msgpack = window.notepack;
-const ws = new WebSocket((location.protocol==='https:'?'wss://':'ws://') + location.host + '/ws');
-ws.binaryType='arraybuffer';
-ws.onopen = ()=>document.getElementById('status').textContent='Connected';
-ws.onmessage = ev => { const msg = msgpack.decode(new Uint8Array(ev.data)); console.log(msg); };
-document.getElementById('join').onclick = ()=> ws.send(msgpack.encode({ t:'joinQueue' }));
-document.getElementById('leave').onclick = ()=> ws.send(msgpack.encode({ t:'leaveQueue' }));
-document.getElementById('start').onclick = ()=> ws.send(msgpack.encode({ t:'startMatch', p:{ count:2 } }));
-</script>
-</body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Queue Client</title>
+</head>
+<body>
+    <h1>Superstar Racing Queue Client</h1>
+    <p>The server is running!</p>
+</body>
+</html>
